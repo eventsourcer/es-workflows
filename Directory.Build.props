@@ -9,17 +9,13 @@
     <Description>
       A lightweight event sourcing framework with event storage of choice.
     </Description>
-    <PackageProjectUrl>https://github.com/eventstorage/eventstorage</PackageProjectUrl>
-    <PackageIcon>github.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/eventstorage/eventstorage.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/eventsourcer/es-workflows</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/eventsourcer/es-workflows.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\.assets\github.png" Pack="true" PackagePath="\"/>
-    <None Include="README.md" Pack="true" PackagePath="\"/>
     <None Include="..\LICENSE" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
