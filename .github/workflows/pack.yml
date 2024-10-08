@@ -36,10 +36,10 @@ jobs:
         dotnet pack --no-build --no-restore --configuration release -p:PackageId=${{ env.packageIdd }}
         -p:PackageVersion=${{ steps.get-version.outputs.tag }} --output .
 
-    - name: github push
-      run: >
-        dotnet nuget push ${{ env.packageIdd }}.${{ steps.get-version.outputs.tag }}.nupkg
-        -k ${{ secrets.GITHUB_TOKEN }} -s "github"
+    # - name: github push
+    #   run: >
+    #     dotnet nuget push ${{ env.packageIdd }}.${{ steps.get-version.outputs.tag }}.nupkg
+    #     -k ${{ secrets.GITHUB_TOKEN }} -s "github"
 
     - name: nuget push
       run: >
