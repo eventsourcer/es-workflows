@@ -31,22 +31,27 @@ jobs:
         vtag=${{ github.ref_name }}; tag=${vtag#v}; echo "tag=$tag" >> $GITHUB_OUTPUT
 
     - name: pack
-      run: >
-        dotnet pack --configuration release -p:PackageId=${{ env.packageIdd }}
+      run: |
+        dotnet build --configuration release
+        dotnet pack --no-restore --no-build --configuration release -p:PackageId=${{ env.packageIdd }}
         -p:PackageVersion=${{ steps.get-version.outputs.tag }} --output .
 
-    - name: github auth
-      run: >
-        dotnet nuget add source --username eventsourcer --password ${{ secrets.GITHUB_TOKEN }}
-        --store-password-in-clear-text --name github ${{ env.github_url }}
+    # - name: github auth
+    #   run: >
+    #     dotnet nuget add source --username eventsourcer --password ${{ secrets.GITHUB_TOKEN }}
+    #     --store-password-in-clear-text --name github_s ${{ env.github_url }}
     
-    - name: nuget auth
-      run: >
-        dotnet nuget add source --username eventstorage --password ${{ secrets.NUGETAPIKEY }}
-        --store-password-in-clear-text --name nuget ${{ env.nuget_url }}
+    # - name: nuget auth
+    #   run: >
+    #     dotnet nuget add source --username eventstorage --password ${{ secrets.NUGETAPIKEY }}
+    #     --store-password-in-clear-text --name nuget ${{ env.nuget_url }}
 
     - name: github push
-      run: dotnet nuget push ${{ env.packageIdd }}.${{ steps.get-version.outputs.tag }}.nupkg -s github
+      run: >
+        dotnet nuget push ${{ env.packageIdd }}.${{ steps.get-version.outputs.tag }}.nupkg
+        -k ${{ secrets.GITHUB_TOKEN }} -s github_s
 
     - name: nuget push
-      run: dotnet nuget push ${{ env.packageIdd }}.${{ steps.get-version.outputs.tag }}.nupkg -s nuget
+      run: >
+        dotnet nuget push ${{ env.packageIdd }}.${{ steps.get-version.outputs.tag }}.nupkg
+        -k ${{ secrets.NugetApikey }} -s nuget
