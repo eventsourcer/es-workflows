@@ -30,9 +30,11 @@ jobs:
       run: |
         vtag=${{ github.ref_name }}; tag=${vtag#v}; echo "tag=$tag" >> $GITHUB_OUTPUT
 
+    - name: build
+      run: dotnet build --configuration release
+
     - name: pack
-      run: |
-        dotnet build --configuration release
+      run: >
         dotnet pack --no-restore --no-build --configuration release -p:PackageId=${{ env.packageIdd }}
         -p:PackageVersion=${{ steps.get-version.outputs.tag }} --output .
 
