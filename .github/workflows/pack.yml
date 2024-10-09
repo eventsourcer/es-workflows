@@ -45,8 +45,8 @@ jobs:
 
     - name: pack
       run: >
-        dotnet pack --no-restore --no-build -c release -p:PackageId=${{ env.packageIdd }}
-        -p:PackageVersion=${{ steps.get-version.outputs.tag }} --output .
+        dotnet pack -c release -p:PackageId=${{ env.packageIdd }}
+        -p:PackageVersion=${{ steps.get-version.outputs.tag }} -p:IncludeSymbols=true -o .
 
     - name: github push
       run: dotnet nuget push *.nupkg -s github --skip-duplicate
