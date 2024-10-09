@@ -49,4 +49,4 @@ jobs:
     - name: nuget push
       run: >
         dotnet nuget push ${{ env.packageIdd }}.${{ steps.get-version.outputs.tag }}.nupkg
-        -k ${{ secrets.NugetApikey }} -s nuget
+        -k ${{ secrets.NugetApikey }} -s "nuget"
