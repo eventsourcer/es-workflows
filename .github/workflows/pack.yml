@@ -49,7 +49,7 @@ jobs:
         -p:PackageVersion=${{ steps.get-version.outputs.tag }} --output .
 
     - name: github push
-      run: dotnet nuget push *.nupkg -s github
+      run: dotnet nuget push *.nupkg -s github --skip-duplicate
 
     - name: nuget push
-      run: dotnet nuget push *.nupkg -s nuget
+      run: dotnet nuget push *.nupkg -s nuget --skip-duplicate
