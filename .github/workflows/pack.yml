@@ -35,8 +35,8 @@ jobs:
 
     - name: pack
       run: >
-        dotnet pack -c release -p:PackageId=${{ env.packId }} -p:PackageVersion=
-        ${{ steps.get-version.outputs.tag }} -o .
+        dotnet pack -c release -p:PackageId=${{ env.packId }}
+        -p:PackageVersion=${{ steps.get-version.outputs.tag }} -o .
 
     - name: github auth
       run: >
