@@ -33,23 +33,23 @@ jobs:
     - name: build
       run: dotnet build --configuration release
 
-    - name: pack
-      run: >
-        dotnet pack --no-restore --no-build --configuration release -p:PackageId=${{ env.packageIdd }}
-        -p:PackageVersion=${{ steps.get-version.outputs.tag }} --output .
-
     - name: github auth
       run: >
         dotnet nuget add source --username eventsourcer --password ${{ secrets.GITHUB_TOKEN }}
         --store-password-in-clear-text --name github ${{ env.github_url }}
     
-    # - name: nuget auth
-    #   run: >
-    #     dotnet nuget add source --username eventstorage --password ${{ secrets.NugetApikey }}
-    #     --store-password-in-clear-text --name nuget ${{ env.nuget_url }}
+    - name: nuget auth
+      run: >
+        dotnet nuget add source --username eventstorage --password ${{ secrets.NugetApikey }}
+        --store-password-in-clear-text --name nuget ${{ env.nuget_url }}
+
+    - name: pack
+      run: >
+        dotnet pack --no-restore --no-build -c release -p:PackageId=${{ env.packageIdd }}
+        -p:PackageVersion=${{ steps.get-version.outputs.tag }} --output .
 
     - name: github push
-      run: dotnet nuget push ${{ env.packageIdd }}.${{ steps.get-version.outputs.tag }}.nupkg -s github
+      run: dotnet nuget push *.nupkg -s github
 
     - name: nuget push
-      run: dotnet nuget push ${{ env.packageIdd }}.${{ steps.get-version.outputs.tag }}.nupkg -s nuget
+      run: dotnet nuget push *.nupkg -s nuget
