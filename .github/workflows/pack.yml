@@ -43,6 +43,9 @@ jobs:
         dotnet nuget add source --username eventsourcer --password ${{ secrets.GITHUB_TOKEN }}
         --store-password-in-clear-text --name gh ${{ env.github_url }}
     
+    - name: list sources
+      run: dotnet nuget list source
+      
     - name: nuget auth
       run: >
         dotnet nuget add source --username eventstorage --password ${{ secrets.NugetApikey }}
