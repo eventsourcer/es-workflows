@@ -46,10 +46,10 @@ jobs:
     - name: nuget auth
       run: >
         dotnet nuget add source --username eventstorage --password ${{ secrets.NugetApikey }}
-        --store-password-in-clear-text --name nu ${{ env.nuget_url }}
+        --store-password-in-clear-text --name nuget_source ${{ env.nuget_url }}
 
     - name: github push
       run: dotnet nuget push *.nupkg -s gh --skip-duplicate
 
     - name: nuget push
-      run: dotnet nuget push *.nupkg -s nu --skip-duplicate
+      run: dotnet nuget push *.nupkg -s nuget_source --skip-duplicate
