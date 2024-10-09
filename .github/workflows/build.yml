@@ -24,5 +24,7 @@ jobs:
     - name: restore
       run: dotnet restore
 
-    - name: build
-      run: dotnet build --no-restore --configuration release
+    - name: build and test
+      run: |
+        dotnet build --no-restore --configuration release
+        dotnet test --no-build --no-restore --verbosity normal
